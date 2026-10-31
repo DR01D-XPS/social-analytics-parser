@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дашборд аналитики соцсетей</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="page-glow"></div>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">СОЦИАЛЬНАЯ АНАЛИТИКА</p>
+      <h1>Центр аналитики каналов</h1>
+    </div>
+    <nav class="nav-actions">
+      <a href="/" class="btn btn-secondary active">Дашборд</a>
+      <a href="/sources" class="btn btn-secondary">Источники</a>
+      <button id="syncAllBtn" class="btn btn-primary">Запустить синхронизацию</button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="card filter-card">
+      <div class="filter-grid">
+        <label>
+          <span>С</span>
+          <input type="date" id="startDate" />
+        </label>
+        <label>
+          <span>По</span>
+          <input type="date" id="endDate" />
+        </label>
+        <label>
+          <span>Интервал</span>
+          <select id="intervalSelect">
+            <option value="hour">Час</option>
+            <option value="day" selected>День</option>
+            <option value="week">Неделя</option>
+            <option value="month">Месяц</option>
+          </select>
+        </label>
+        <label>
+          <span>Платформа</span>
+          <select id="platformSelect">
+            <option value="">Все</option>
+            <option value="vk">VK</option>
+            <option value="telegram">Telegram</option>
+            <option value="max">MAX</option>
+          </select>
+        </label>
+        <label>
+          <span>Источник</span>
+          <select id="accountSelect">
+            <option value="">Все</option>
+          </select>
+        </label>
+      </div>
+      <div class="filter-actions">
+        <button id="applyFiltersBtn" class="btn btn-primary">Применить</button>
+        <button id="exportCsvBtn" class="btn btn-ghost">Экспорт CSV</button>
+        <span id="statusText" class="status-text">Готово</span>
+      </div>
+    </section>
+
+    <section class="kpi-grid" id="kpiGrid">
+      <article class="card kpi">
+        <p>Приток</p>
+        <h2 id="kpiInflow">0</h2>
+      </article>
+      <article class="card kpi">
+        <p>Отток</p>
+        <h2 id="kpiOutflow">0</h2>
+      </article>
+      <article class="card kpi">
+        <p>Чистый рост</p>
+        <h2 id="kpiNet">0</h2>
+      </article>
+      <article class="card kpi">
+        <p>Просмотры</p>
+        <h2 id="kpiViews">0</h2>
+      </article>
+      <article class="card kpi">
+        <p>Вовлеченность</p>
+        <h2 id="kpiEngagement">0%</h2>
+      </article>
+    </section>
+
+    <section class="chart-grid">
+      <article class="card chart-card">
+        <div class="card-title-row">
+          <h3>Динамика метрик постов</h3>
+        </div>
+        <div class="chart-body">
+          <canvas id="postTrendChart"></canvas>
+        </div>
+      </article>
+      <article class="card chart-card">
+        <div class="card-title-row">
+          <h3>Приток и отток аудитории</h3>
+        </div>
+        <div class="chart-body">
+          <canvas id="audienceFlowChart"></canvas>
+        </div>
+      </article>
+      <article class="card chart-card">
+        <div class="card-title-row">
+          <h3>Накопленный рост</h3>
+        </div>
+        <div class="chart-body">
+          <canvas id="cumulativeChart"></canvas>
+        </div>
+      </article>
+    </section>
+
+    <section class="card table-card">
+      <div class="card-title-row">
+        <h3>Топ постов</h3>
+      </div>
+      <div class="table-scroll">
+        <table id="topPostsTable">
+          <thead>
+            <tr>
+              <th>Платформа</th>
+              <th>Источник</th>
+              <th>Пост</th>
+              <th>Просмотры</th>
+              <th>Реакции</th>
+              <th>Комментарии</th>
+              <th>Репосты</th>
+              <th>ER</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="/static/app.js" type="module"></script>
+</body>
+</html>
